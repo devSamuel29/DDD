@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\PROJETO.Infra\Projeto.Infra.csproj" />
+    <ProjectReference Include="..\PROJETO.Infra\PROJETO.Infra.csproj" />
     <ProjectReference Include="..\PROJETO.DTO\PROJETO.DTO.csproj" />
   </ItemGroup>
 
