@@ -5,7 +5,6 @@ Projeto voltado para estudo de arquitetura limpa, Domain Driven Design (DDD), ut
 **Login**
 ```csharp
 VIA POST
-  
-email: "",
-password: "",
+email: string,
+password: string,
 ```
