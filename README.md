@@ -3,6 +3,6 @@ Projeto voltado para estudo de arquitetura limpa, Domain Driven Design (DDD), ut
 
 ## Autenticação
 **Login**
-```json
-  email: "email@email.com",
+```csharp
+  email = "email@email.com",
 ```
