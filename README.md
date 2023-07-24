@@ -4,5 +4,5 @@ Projeto voltado para estudo de arquitetura limpa, Domain Driven Design (DDD), ut
 ## Autenticação
 **Login**
 ```json
-  asdsadsda: dsadasdas,
+  email: "email@email.com",
 ```
