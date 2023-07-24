@@ -8,5 +8,4 @@ VIA POST
   
 email: "",
 password: "",
-
 ```
