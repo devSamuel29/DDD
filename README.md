@@ -3,8 +3,8 @@ Projeto voltado para estudo de arquitetura limpa, Domain Driven Design (DDD), ut
 
 ## Autenticação
 **Login**
-```csharp
 ***VIA POST***
+```csharp
 email: string(60),
 password: string(8-16),
 ```
