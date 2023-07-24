@@ -4,7 +4,9 @@ Projeto voltado para estudo de arquitetura limpa, Domain Driven Design (DDD), ut
 ## Autenticação
 **Login**
 ```
-  {
-    email = "",
-  }
+VIA POST
+  
+email: "",
+password: "",
+
 ```
