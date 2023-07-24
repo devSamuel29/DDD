@@ -9,6 +9,14 @@ email: string(60),
 password: string(8-16)
 ```
 
+- **Possíveis respostas** <br/>
+
+  | Código   |      Mensagem      |
+  |----------|-------------:|
+  | 200 |  left-aligned |
+  | 404 |    centered   |  
+  | 500 | right-aligned | 
+
 ### Registro:
 ***VIA POST***
 ```csharp
@@ -19,4 +27,10 @@ phone: string(11),
 email: string(60),
 password: string(8-16)
 ```
-#### Possíveis respostas
+- **Possíveis respostas** <br/>
+
+  | Código   |      Mensagem      |
+  |----------|-------------:|
+  | 200 |  left-aligned |
+  | 404 |    centered   |  
+  | 500 | right-aligned | 
