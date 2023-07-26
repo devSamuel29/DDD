@@ -5,8 +5,8 @@ using PROJETO.Domain.Repository;
 using PROJETO.Domain.Interfaces.Services;
 using PROJETO.Domain.Interfaces.Repository;
 
-// using Azure.Identity;
-// using Azure.Security.KeyVault.Secrets;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
@@ -20,13 +20,13 @@ using PROJETO.Domain.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// var keyVaultUrl = builder.Configuration.GetValue<string>("AzureKeyVaultUrl");
-// var secretsClient = new SecretClient(new Uri(keyVaultUrl!), new DefaultAzureCredential());
+var keyVaultUrl = builder.Configuration.GetValue<string>("AzureKeyVaultUrl");
+var secretsClient = new SecretClient(new Uri(keyVaultUrl!), new DefaultAzureCredential());
 
 builder.Services.AddDbContext<MyDbContext>(
     options =>
         options.UseSqlServer(
-            builder.Configuration.GetConnectionString("SqlServerConnectionString")
+            secretsClient.GetSecret("Projetoddd-ConnectionString").Value.Value
         )
 );
 
