@@ -1,6 +1,9 @@
 using PROJETO.Api.Swagger;
+using PROJETO.DTO.Automapper;
 using PROJETO.Infra.Database;
 using PROJETO.Domain.Services;
+using PROJETO.Domain.Identity;
+using PROJETO.Domain.Interfaces;
 using PROJETO.Domain.Repository;
 using PROJETO.Domain.Interfaces.Services;
 using PROJETO.Domain.Interfaces.Repository;
@@ -15,8 +18,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 using System.Text;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using PROJETO.Domain.Interfaces;
-using PROJETO.Domain.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,7 +49,7 @@ builder.Services
             ValidIssuer = builder.Configuration.GetValue<string>("Jwt:Issuer"),
             ValidAudience = builder.Configuration.GetValue<string>("Jwt:Audience"),
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("Jwt:Key")!)
+                Encoding.UTF8.GetBytes(secretsClient.GetSecret("Jwt--Key").Value.Value)
             )
         };
     });
@@ -69,6 +70,7 @@ builder.Services.AddAuthorization(options =>
     );
 });
 
+builder.Services.AddAutoMapper(typeof(MyAutoMapper));
 builder.Services.AddTransient<
     IConfigureOptions<SwaggerGenOptions>,
     ConfigureSwaggerOptions

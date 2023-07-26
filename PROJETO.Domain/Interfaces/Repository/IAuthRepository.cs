@@ -6,7 +6,7 @@ namespace PROJETO.Domain.Interfaces.Repository;
 
 public interface IAuthRepository
 {
-    Task RegisterAsync(RegisterRequest request);
+    Task<JwtSecurityToken> RegisterAsync(RegisterRequest request);
 
     Task<JwtSecurityToken> LoginAsync(LoginRequest request);
 }

@@ -6,10 +6,10 @@ using PROJETO.Domain.Interfaces;
 using PROJETO.Domain.Interfaces.Services;
 using PROJETO.Domain.Interfaces.Repository;
 
-using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 
 using Microsoft.EntityFrameworkCore;
+
 using AutoMapper;
 
 namespace PROJETO.Domain.Repository;
@@ -54,11 +54,11 @@ public class AuthRepository : IAuthRepository
                     dbUser.Email,
                     dbUser.Role
                 );
-                await _emailService.SendEmail(
-                    dbUser.Email,
-                    "LOGIN - PROJETO",
-                    "VOCÊ ACABA DE FAZER LOGIN!"
-                );
+                // await _emailService.SendEmail(
+                //     dbUser.Email,
+                //     "LOGIN - PROJETO",
+                //     "VOCÊ ACABA DE FAZER LOGIN!"
+                // );
                 return await _jwtService.GetTokenAsync(claims);
             }
             throw new InvalidDataException("Dados incorretos!");
@@ -66,7 +66,7 @@ public class AuthRepository : IAuthRepository
         throw new FormatException(validation.ToString());
     }
 
-    public async Task RegisterAsync(RegisterRequest request)
+    public async Task<JwtSecurityToken> RegisterAsync(RegisterRequest request)
     {
         var validator = new RegisterRequestValidator();
         var validation = validator.Validate(request);
@@ -75,11 +75,12 @@ public class AuthRepository : IAuthRepository
         {
             await _dbContext.Users.AddAsync(_mapper.Map<UserModel>(request));
             await _dbContext.SaveChangesAsync();
-            await _emailService.SendEmail(
-                request.Email,
-                "CADASTRO - PROJETO",
-                "VOCÊ ACABA DE FAZER SE CADASTRAR!"
-            );
+            // await _emailService.SendEmail(
+            //     request.Email,
+            //     "CADASTRO - PROJETO",
+            //     "VOCÊ ACABA DE FAZER SE CADASTRAR!"
+            // );
+            return await LoginAsync(_mapper.Map<LoginRequest>(request));
         }
         throw new InvalidDataException(validation.ToString());
     }
