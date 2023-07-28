@@ -8,9 +8,6 @@ using PROJETO.Domain.Repository;
 using PROJETO.Domain.Interfaces.Services;
 using PROJETO.Domain.Interfaces.Repository;
 
-using Azure.Identity;
-using Azure.Security.KeyVault.Secrets;
-
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -21,14 +18,8 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var keyVaultUrl = builder.Configuration.GetValue<string>("AzureKeyVaultUrl");
-var secretsClient = new SecretClient(new Uri(keyVaultUrl!), new DefaultAzureCredential());
-
 builder.Services.AddDbContext<MyDbContext>(
-    options =>
-        options.UseSqlServer(
-            secretsClient.GetSecret("Projetoddd-ConnectionString").Value.Value
-        )
+    options => options.UseSqlServer("colocar secrets da aws")
 );
 
 builder.Services
@@ -49,7 +40,7 @@ builder.Services
             ValidIssuer = builder.Configuration.GetValue<string>("Jwt:Issuer"),
             ValidAudience = builder.Configuration.GetValue<string>("Jwt:Audience"),
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(secretsClient.GetSecret("Jwt--Key").Value.Value)
+                Encoding.UTF8.GetBytes("colocarjwt")
             )
         };
     });
