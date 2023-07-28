@@ -25,4 +25,5 @@ jobs:
         run: dotnet build ./PROJETO.sln --configuration Release --no-restore
         
       - name: Publish
-        run: dotnet publish ./PROJETO.Api/PROJETO.Api.csproj --configuration Release --no-build -o ./output --self-contained false 
+        run: dotnet publish ./PROJETO.Api/PROJETO.Api.csproj --configuration Release --no-build -o ./output --self-contained false
+        
