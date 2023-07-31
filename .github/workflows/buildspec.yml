@@ -28,7 +28,7 @@ jobs:
       run: dotnet test --no-restore --verbosity normal
 
     - name: Publish
-      run: dotnet publish -c Release -o './${{ github.workspace }}/out'
+      run: dotnet publish -c Release -o '${{ github.workspace }}/out'
 
     - name: Zip Package
       run: |
@@ -45,5 +45,5 @@ jobs:
         region: sa-east-1
         version_label: ${{ github.run_id }}
         version_description: ${{ github.sha }}
-        deployment_package: ./${{ github.workspace }}/out
+        deployment_package: ${{ github.workspace }}/out
         
