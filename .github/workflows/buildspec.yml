@@ -21,9 +21,26 @@ jobs:
       - name: Restore
         run: dotnet restore ./PROJETO.sln
         
-      - name: Build
-        run: dotnet build ./PROJETO.sln --configuration Release --no-restore
+      - name: Tests
+        run: dotnet test --no-restore --verbosity normal
         
       - name: Publish
-        run: dotnet publish ./PROJETO.Api/PROJETO.Api.csproj --configuration Release --no-build -o ./output --self-contained false
+        run: dotnet publish -c Release -o '${{ github.workspace }}/out'
+
+      - name: Zip Package
+        run: |
+          cd ${{ github.workspace }}/out
+          zip -r {{ github.workspace }}/out.zip *
+
+      - name: Deploy AWS
+        uses: einaregilsson/beanstalk-deploy@v13
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: projeto-ddd
+          environment_name: PROJETO-DDD-env
+          region: sa-east-1
+          version_label: ${{ github.run_id }}
+          version_description: ${{ github.sha }}
+          deployment_package: ${{ github.workspace }}/out.zip
         
