@@ -28,12 +28,12 @@ jobs:
       run: dotnet test --no-restore --verbosity normal
 
     - name: Publish
-      run: dotnet publish -c Release -o 'PROJETO.Api/${{ github.workspace }}/out'
+      run: dotnet publish -c Release -o './PROJETO.Api/${{ github.workspace }}/out'
 
     - name: Zip Package
       run: |
-        cd PROJETO.Api/${{ github.workspace }}/out
-        zip -r {{ github.workspace }}/out.zip *
+        cd ./PROJETO.Api/${{ github.workspace }}/out
+        zip -r ./PROJETO.Api/${{ github.workspace }}/out.zip *
 
     - name: Deploy AWS
       uses: einaregilsson/beanstalk-deploy@v13
@@ -45,5 +45,5 @@ jobs:
         region: sa-east-1
         version_label: ${{ github.run_id }}
         version_description: ${{ github.sha }}
-        deployment_package: ${{ github.workspace }}/out.zip
+        deployment_package: ./PROJETO.Api/${{ github.workspace }}/out
         
