@@ -28,11 +28,11 @@ jobs:
       run: dotnet test --no-restore --verbosity normal
 
     - name: Publish
-      run: dotnet publish -c Release -o '${{ github.workspace }}/out'
+      run: dotnet publish -c Release -o 'PROJETO.Api/${{ github.workspace }}/out'
 
     - name: Zip Package
       run: |
-        cd ${{ github.workspace }}/out
+        cd PROJETO.Api/${{ github.workspace }}/out
         zip -r {{ github.workspace }}/out.zip *
 
     - name: Deploy AWS
