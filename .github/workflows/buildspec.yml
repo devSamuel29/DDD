@@ -40,5 +40,5 @@ jobs:
         region: sa-east-1
         version_label: ${{ github.run_id }}
         version_description: ${{ github.sha }}
-        deployment_package: ${{ github.workspace }}/out
+        deployment_package: ./out
         
