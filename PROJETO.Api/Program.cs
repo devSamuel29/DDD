@@ -1,25 +1,24 @@
-using PROJETO.Api.Swagger;
-using PROJETO.DTO.Automapper;
+using PROJETO.Infra.Identity;
 using PROJETO.Infra.Database;
 using PROJETO.Domain.Services;
-using PROJETO.Domain.Identity;
-using PROJETO.Domain.Interfaces;
-using PROJETO.Domain.Repository;
-using PROJETO.Domain.Interfaces.Services;
-using PROJETO.Domain.Interfaces.Repository;
+using PROJETO.Domain.Repository.Auth;
+using PROJETO.Infra.Interfaces.Services;
+using PROJETO.Domain.Interfaces.Repository.Auth;
 
-using Microsoft.Extensions.Options;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 using System.Text;
-using Swashbuckle.AspNetCore.SwaggerGen;
+using PROJETO.DTO.Mapper.Auth;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<MyDbContext>(
-    options => options.UseSqlServer("colocar secrets da aws")
+    options =>
+        options.UseSqlServer(
+            builder.Configuration.GetConnectionString("SqlServerConnectionString")
+        )
 );
 
 builder.Services
@@ -61,17 +60,11 @@ builder.Services.AddAuthorization(options =>
     );
 });
 
-builder.Services.AddAutoMapper(typeof(MyAutoMapper));
-builder.Services.AddTransient<
-    IConfigureOptions<SwaggerGenOptions>,
-    ConfigureSwaggerOptions
->();
-builder.Services.AddTransient<IJwtService, JwtService>();
-builder.Services.AddTransient<IEmailService, EmailService>();
-
-builder.Services.AddScoped<IAuthRepository, AuthRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+builder.Services.AddSingleton<RegisterMapper>();
+builder.Services.AddSingleton<IJwtService, JwtService>();
+builder.Services.AddSingleton<IEmailService, EmailService>();
+builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

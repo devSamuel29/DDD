@@ -1,4 +1,4 @@
-﻿namespace PROJETO.Domain.Identity;
+namespace PROJETO.Infra.Identity;
 
 public class PolicyRules
 {

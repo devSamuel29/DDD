@@ -12,7 +12,7 @@ using PROJETO.Infra.Database;
 namespace PROJETO.Infra.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20230716204527_Migrations")]
+    [Migration("20230924002150_Migrations")]
     partial class Migrations
     {
         /// <inheritdoc />

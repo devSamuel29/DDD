@@ -1,4 +1,4 @@
-name: First deploy 🚀
+name: Deploy on AWS
 
 on:
   workflow_dispatch:
