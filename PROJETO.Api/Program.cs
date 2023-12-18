@@ -1,16 +1,13 @@
-using PROJETO.Infra.Identity;
 using PROJETO.Infra.Database;
-using PROJETO.Domain.Services;
-using PROJETO.Domain.Repository.Auth;
-using PROJETO.Infra.Interfaces.Services;
-using PROJETO.Domain.Interfaces.Repository.Auth;
 
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 using System.Text;
-using PROJETO.DTO.Mapper.Auth;
 using Microsoft.EntityFrameworkCore;
+using PROJETO.Domain.Repositories.Auth;
+using PROJETO.Domain.UseCase.Abstractions.Auth;
+using PROJETO.Domain.UseCase.Implementations.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +17,9 @@ builder.Services.AddDbContext<MyDbContext>(
             builder.Configuration.GetConnectionString("SqlServerConnectionString")
         )
 );
+
+builder.Services.AddScoped<ILoginUseCase, LoginUseCase>();
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
 builder.Services
     .AddAuthentication(options =>
@@ -59,12 +59,6 @@ builder.Services.AddAuthorization(options =>
         p => p.RequireClaim(PolicyRules.ClaimTitle, PolicyRules.UserClaimName)
     );
 });
-
-builder.Services.AddSingleton<RegisterMapper>();
-builder.Services.AddSingleton<IJwtService, JwtService>();
-builder.Services.AddSingleton<IEmailService, EmailService>();
-builder.Services.AddScoped<ILoginRepository, LoginRepository>();
-builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

@@ -1,17 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-  <ItemGroup>
-    <ProjectReference Include="..\PROJETO.Infra\PROJETO.Infra.csproj" />
-    <ProjectReference Include="..\PROJETO.DTO\PROJETO.DTO.csproj" />
-  </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Exception\" />
-    <Folder Include="Exception\Auth\" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -19,5 +8,4 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
 </Project>
